@@ -26,18 +26,8 @@ public class ProductResource {
 	
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<?> findById(@PathVariable Long id) {
-		try {
-			Product obj = productService.findById(id);
-			return ResponseEntity.ok().body(obj);
-	} catch (EntityNotFoundException e) {
-		StandartError err = new StandartError();
-		err.setTimestramp(Instant.now());
-		err.setStatus(HttpStatus.NOT_FOUND.value());
-		err.setError("Resource not found");
-		err.setMessage(e.getMessage());
-		err.setPath("test");
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
+	public ResponseEntity<Product> findById(@PathVariable Long id) {
+		Product obj = productService.findById(id);
+		return ResponseEntity.ok().body(obj);	
 	}
-}
 }
